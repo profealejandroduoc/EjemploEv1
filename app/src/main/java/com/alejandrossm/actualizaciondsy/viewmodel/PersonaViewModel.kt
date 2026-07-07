@@ -103,9 +103,22 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
                 _showToast.value = true
                 kotlinx.coroutines.delay(2000)
                 _showToast.value = false
+                resetForm()
                 onSuccess()
             }
         }
+    }
+
+    fun resetForm() {
+        _rut.value = ""
+        _nombre.value = ""
+        _apellido.value = ""
+        _edad.value = ""
+        _rutError.value = null
+        _nombreError.value = null
+        _apellidoError.value = null
+        _edadError.value = null
+        _isButtonEnabled.value = false
     }
 
     fun eliminarPersona(persona: Persona) {

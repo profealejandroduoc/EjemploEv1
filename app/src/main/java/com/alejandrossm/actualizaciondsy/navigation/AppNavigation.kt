@@ -30,7 +30,10 @@ fun AppNavigation() {
         composable(Rutas.Home.route) {
             HomeScreen(
                 viewModel = viewModel,
-                onNavigateToRegistro = { navController.navigate(Rutas.Registro.route) }
+                onNavigateToRegistro = {
+                    viewModel.resetForm()
+                    navController.navigate(Rutas.Registro.route)
+                }
             )
         }
         composable(Rutas.Registro.route) {
