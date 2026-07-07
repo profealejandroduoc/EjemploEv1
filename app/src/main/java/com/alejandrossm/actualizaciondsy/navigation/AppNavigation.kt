@@ -11,13 +11,13 @@ import com.alejandrossm.actualizaciondsy.view.RegistroScreen
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
+    NavHost(navController = navController, startDestination = Rutas.Home.route) {
+        composable(Rutas.Home.route) {
             HomeScreen(
-                onNavigateToRegistro = { navController.navigate("registro") }
+                onNavigateToRegistro = { navController.navigate(Rutas.Registro.route) }
             )
         }
-        composable("registro") {
+        composable(Rutas.Registro.route) {
             RegistroScreen(
                 onBack = { navController.popBackStack() }
             )
