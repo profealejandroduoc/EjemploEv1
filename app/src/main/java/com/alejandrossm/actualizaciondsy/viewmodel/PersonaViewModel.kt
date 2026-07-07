@@ -107,4 +107,10 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
             }
         }
     }
+
+    fun eliminarPersona(persona: Persona) {
+        viewModelScope.launch {
+            personaDao.delete(persona)
+        }
+    }
 }

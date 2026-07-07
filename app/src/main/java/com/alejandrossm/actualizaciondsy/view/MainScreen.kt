@@ -2,20 +2,22 @@ package com.alejandrossm.actualizaciondsy.view
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -76,23 +78,44 @@ fun HomeScreen(viewModel: PersonaViewModel, onNavigateToRegistro: () -> Unit) {
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(personas) { persona ->
-                    Column(
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = persona.rut,
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        Text(
-                            text = "${persona.nombre} ${persona.apellido}",
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                        Text(
-                            text = "Edad: ${persona.edad}",
-                            style = MaterialTheme.typography.bodySmall
-                        )
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = persona.rut,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                            Text(
+                                text = "${persona.nombre} ${persona.apellido}",
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                            Text(
+                                text = "Edad: ${persona.edad}",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+
+                        IconButton(onClick = { /* TODO: Implementar edición */ }) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Editar",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        IconButton(onClick = { viewModel.eliminarPersona(persona) }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Eliminar",
+                                tint = MaterialTheme.colorScheme.error
+                            )
+                        }
                     }
                     HorizontalDivider()
                 }
