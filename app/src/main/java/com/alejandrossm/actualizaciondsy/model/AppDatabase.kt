@@ -1,4 +1,4 @@
-package com.alejandrossm.actualizaciondsy.data
+package com.alejandrossm.actualizaciondsy.model
 
 import android.content.Context
 import androidx.room.Database

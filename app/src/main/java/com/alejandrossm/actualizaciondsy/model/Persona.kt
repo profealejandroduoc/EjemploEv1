@@ -1,4 +1,4 @@
-package com.alejandrossm.actualizaciondsy.data
+package com.alejandrossm.actualizaciondsy.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package com.alejandrossm.actualizaciondsy.data
+package com.alejandrossm.actualizaciondsy.model
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
