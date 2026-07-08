@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alejandrossm.actualizaciondsy.model.Persona
 import com.alejandrossm.actualizaciondsy.data.PersonaDao
+import com.alejandrossm.actualizaciondsy.util.esRutValido
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -52,8 +53,16 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
 
     fun onRutChange(newValue: String) {
         _rut.value = newValue
-        _rutError.value = if (newValue.isBlank()) "El RUT es obligatorio" else null
-        validate()
+        viewModelScope.launch {
+            val exists = personaDao.getByRut(newValue) != null
+            _rutError.value = when {
+                newValue.isBlank() -> "El RUT es obligatorio"
+                !newValue.esRutValido() -> "El RUT no es válido"
+                exists -> "Este RUT ya está registrado"
+                else -> null
+            }
+            validate()
+        }
     }
 
     fun onNombreChange(newValue: String) {
@@ -84,9 +93,13 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
     private fun validate() {
         val edadInt = _edad.value.toIntOrNull() ?: 0
         _isButtonEnabled.value = _rut.value.isNotBlank() &&
+                _rutError.value == null &&
                 _nombre.value.isNotBlank() &&
+                _nombreError.value == null &&
                 _apellido.value.isNotBlank() &&
+                _apellidoError.value == null &&
                 _edad.value.isNotBlank() &&
+                _edadError.value == null &&
                 edadInt > 0
     }
 
@@ -116,6 +129,13 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
                 _nombre.value = persona.nombre
                 _apellido.value = persona.apellido
                 _edad.value = persona.edad.toString()
+                
+                // Limpiar errores al cargar
+                _rutError.value = null
+                _nombreError.value = null
+                _apellidoError.value = null
+                _edadError.value = null
+
                 validate()
             }
         }
