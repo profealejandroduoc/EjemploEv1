@@ -3,7 +3,7 @@ package com.alejandrossm.actualizaciondsy.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alejandrossm.actualizaciondsy.model.Persona
-import com.alejandrossm.actualizaciondsy.model.PersonaDao
+import com.alejandrossm.actualizaciondsy.data.PersonaDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

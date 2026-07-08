@@ -1,9 +1,10 @@
-package com.alejandrossm.actualizaciondsy.model
+package com.alejandrossm.actualizaciondsy.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.alejandrossm.actualizaciondsy.model.Persona
 
 @Database(entities = [Persona::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

@@ -1,6 +1,7 @@
-package com.alejandrossm.actualizaciondsy.model
+package com.alejandrossm.actualizaciondsy.data
 
 import androidx.room.*
+import com.alejandrossm.actualizaciondsy.model.Persona
 import kotlinx.coroutines.flow.Flow
 
 @Dao

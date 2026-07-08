@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.alejandrossm.actualizaciondsy.model.AppDatabase
+import com.alejandrossm.actualizaciondsy.data.AppDatabase
 import com.alejandrossm.actualizaciondsy.view.HomeScreen
 import com.alejandrossm.actualizaciondsy.view.RegistroScreen
 import com.alejandrossm.actualizaciondsy.viewmodel.PersonaViewModel
