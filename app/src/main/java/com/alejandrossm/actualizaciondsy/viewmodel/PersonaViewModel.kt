@@ -109,6 +109,37 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
         }
     }
 
+    fun cargarPersona(rut: String) {
+        viewModelScope.launch {
+            personaDao.getByRut(rut)?.let { persona ->
+                _rut.value = persona.rut
+                _nombre.value = persona.nombre
+                _apellido.value = persona.apellido
+                _edad.value = persona.edad.toString()
+                validate()
+            }
+        }
+    }
+
+    fun actualizarPersona(onSuccess: () -> Unit) {
+        if (_isButtonEnabled.value) {
+            viewModelScope.launch {
+                val persona = Persona(
+                    rut = _rut.value,
+                    nombre = _nombre.value,
+                    apellido = _apellido.value,
+                    edad = _edad.value.toInt()
+                )
+                personaDao.update(persona)
+                _showToast.value = true
+                kotlinx.coroutines.delay(2000)
+                _showToast.value = false
+                resetForm()
+                onSuccess()
+            }
+        }
+    }
+
     fun resetForm() {
         _rut.value = ""
         _nombre.value = ""

@@ -33,7 +33,11 @@ import com.alejandrossm.actualizaciondsy.viewmodel.PersonaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: PersonaViewModel, onNavigateToRegistro: () -> Unit) {
+fun HomeScreen(
+    viewModel: PersonaViewModel,
+    onNavigateToRegistro: () -> Unit,
+    onNavigateToEdicion: (String) -> Unit
+) {
     val personas by viewModel.personas.collectAsState()
 
     Scaffold(
@@ -101,7 +105,7 @@ fun HomeScreen(viewModel: PersonaViewModel, onNavigateToRegistro: () -> Unit) {
                             )
                         }
 
-                        IconButton(onClick = { /* TODO: Implementar edición */ }) {
+                        IconButton(onClick = { onNavigateToEdicion(persona.rut) }) {
                             Icon(
                                 imageVector = Icons.Default.Edit,
                                 contentDescription = "Editar",
