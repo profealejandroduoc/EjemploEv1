@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.alejandrossm.actualizaciondsy.view.components.SuccessToast
@@ -80,7 +81,13 @@ fun RegistroScreen(viewModel: PersonaViewModel, onBack: () -> Unit) {
                 value = rut,
                 onValueChange = { viewModel.onRutChange(it) },
                 label = { Text("RUT") },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { focusState ->
+                        if (!focusState.isFocused) {
+                            viewModel.onRutFocusLost()
+                        }
+                    },
                 isError = rutError != null,
                 supportingText = { rutError?.let { Text(it) } }
             )

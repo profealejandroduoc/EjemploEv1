@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.alejandrossm.actualizaciondsy.model.Persona
 import com.alejandrossm.actualizaciondsy.data.PersonaDao
 import com.alejandrossm.actualizaciondsy.util.esRutValido
+import com.alejandrossm.actualizaciondsy.util.formatearRut
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -62,6 +63,17 @@ class PersonaViewModel(private val personaDao: PersonaDao) : ViewModel() {
                 else -> null
             }
             validate()
+        }
+    }
+
+    fun onRutFocusLost() {
+        val current = _rut.value
+        if (current.isNotBlank()) {
+            val formatted = current.formatearRut()
+            // Si el valor cambia al formatear, lo actualizamos y re-validamos
+            if (formatted != current) {
+                onRutChange(formatted)
+            }
         }
     }
 

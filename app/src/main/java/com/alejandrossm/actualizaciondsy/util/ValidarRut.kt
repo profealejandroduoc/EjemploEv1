@@ -1,8 +1,6 @@
 package com.alejandrossm.actualizaciondsy.util
 
-/**
- * Función de extensión para validar el RUT chileno (con dígito verificador)
- */
+
 fun String.esRutValido(): Boolean {
     val rutLimpio = this.replace(".", "").replace("-", "").uppercase()
     if (rutLimpio.length < 8) return false
@@ -15,10 +13,7 @@ fun String.esRutValido(): Boolean {
     return validarDV(cuerpo) == dv
 }
 
-/**
- * Algoritmo de Módulo 11 para calcular el dígito verificador
- */
-private fun validarDV(cuerpo: String): String {
+fun validarDV(cuerpo: String): String {
     var suma = 0
     var multiplo = 2
     
@@ -33,4 +28,13 @@ private fun validarDV(cuerpo: String): String {
         10 -> "K"
         else -> dvEsperado.toString()
     }
+}
+
+fun String.formatearRut(): String {
+    val limpio = this.replace(Regex("[^0-9kK]"), "").uppercase()
+    if (limpio.length < 2) return limpio
+    
+    val cuerpo = limpio.substring(0, limpio.length - 1)
+    val dv = limpio.substring(limpio.length - 1)
+    return "$cuerpo-$dv"
 }
